@@ -1,7 +1,5 @@
 package core.basesyntax;
 
-import jdk.dynalink.Operation;
-
 public class FruitTransaction {
     private Operation operation;
     private String fruit;
