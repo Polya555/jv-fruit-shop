@@ -1,11 +1,14 @@
 package core.basesyntax;
 
+import core.basesyntax.serviceimpl.ReportGeneratorImpl;
+import core.basesyntax.serviceimpl.ShopServiceImpl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
     public static void main(String[] arg) {
+        Storage storage = new Storage();
         FileReader fileReader = new FileReaderImpl();
         List<String> inputReport = fileReader.read("reportToRead.csv");
 
@@ -22,10 +25,15 @@ public class Main {
         ShopService shopService = new ShopServiceImpl(operationStrategy);
         shopService.process(transactions);
 
-        ReportGenerator reportGenerator = new ReportGeneratorImpl();
+        ReportGenerator reportGenerator = new ReportGeneratorImpl(storage);
         String resultingReport = reportGenerator.getReport();
 
-        FileWriter fileWriter = new FileWriterImpl();
+        FileWriter fileWriter = new FileWriter() {
+            @Override
+            public void write(String data, String fileName) {
+
+            }
+        };
         fileWriter.write(resultingReport, "finalReport.csv");
     }
 }
